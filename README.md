@@ -8,14 +8,13 @@ The Digital Chief of Staff for the Modern Family Office
 
 ## 📜 Table of Contents
 
-1. [Product Vision](https://www.google.com/search?q=%23product-vision)
-2. [Core Concepts](https://www.google.com/search?q=%23core-concepts)
-3. [Technical Architecture](https://www.google.com/search?q=%23technical-architecture)
-4. [Data & Storage Strategy](https://www.google.com/search?q=%23data--storage-strategy)
-5. [Technology Stack](https://www.google.com/search?q=%23technology-stack)
-6. [Getting Started (Development)](https://www.google.com/search?q=%23getting-started-development)
-7. [Deployment (Home Server)](https://www.google.com/search?q=%23deployment-home-server)
-8. [Roadmap](https://www.google.com/search?q=%23roadmap)
+1. [Product Vision](#-product-vision)
+2. [Core Concepts](#-core-concepts)
+3. [Technical Architecture](#-technical-architecture)
+4. [Data & Storage Strategy](#-data--storage-strategy)
+5. [Technology Stack](#-technology-stack)
+6. [Getting Started (Development)](#-getting-started-development)
+7. [Deployment (Home Server)](#-deployment-home-server)
 
 -----
 
@@ -210,33 +209,6 @@ To deploy to your Proxmox Ubuntu VM.
     git pull
     docker-compose -f docker-compose.prod.yml up -d --build
     ```
-
------
-
-## 🗺 Roadmap
-
-### Phase 1: The Foundation (Current)
-
-* [ ] Dockerized Environment Setup.
-* [ ] Database Schema Design (Matters, Documents, Triage).
-* [ ] Basic File Ingestion (Upload & OCR).
-* [ ] LLM Extraction Pipeline (The "Triage" View).
-
-### Phase 2: The Core Experience
-
-* [ ] "Matters" Dashboard with Timeline View.
-* [ ] Dynamic Attribute Rendering (Schema-Driven UI).
-* [ ] Semantic Search Implementation.
-
-### Phase 3: The Connected Home (Hardware Integration)
-
-* [ ] **Synology NAS Integration:** Migrating `LocalFileSystemService` to `S3StorageService`.
-* [ ] Calendar Export (.ics feed).
-
-### Phase 4: Agentic Capabilities
-
-* [ ] Automated "Draft Email" generation.
-* [ ] "Chat with Document" interface.
 
 -----
 
