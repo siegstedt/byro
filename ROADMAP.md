@@ -3,9 +3,9 @@
 ## Phase 1: The Foundation (Current)
 
 * [x] Dockerized Environment Setup.
-* [ ] Database Schema Design (Matters, Documents, Triage).
-* [ ] Basic File Ingestion (Upload & OCR).
-* [ ] LLM Extraction Pipeline (The "Triage" View).
+* [x] Database Schema Design (Matters, Documents, Triage).
+* [x] Basic File Ingestion (Upload & OCR).
+* [x] LLM Extraction Pipeline (The "Triage" View).
 
 ## Phase 2: The Core Experience
 
