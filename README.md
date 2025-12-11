@@ -1,8 +1,15 @@
-# Byro
-
 ![Byro Logo](./frontend/public/byro%20logo%20cropped.png)
 
-The Digital Chief of Staff for the Modern Family Office
+<!-- Badges -->
+![Python Version](https://img.shields.io/badge/python-3.13+-blue.svg?style=flat-square)
+![Node.js Version](https://img.shields.io/badge/node.js-18+-green.svg?style=flat-square)
+![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=flat-square&logo=docker&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=flat-square&logo=postgresql&logoColor=white)
+![OpenAI](https://img.shields.io/badge/OpenAI-412991?style=flat-square&logo=openai&logoColor=white)
+![License](https://img.shields.io/badge/license-Proprietary-red.svg?style=flat-square)
+![Last Commit](https://img.shields.io/github/last-commit/siegstedt/byro?style=flat-square)
+
+# Byro: The Digital Chief of Staff for the Modern Family Office
 
 > **Mission:** To create a centralized, sovereign "Active Intelligence" layer that sits between the Family Office and the chaos of the outside world. Byro translates the noise of legal administration into structured clarity, ensuring that no obligation is missed and no right is forfeited.
 
@@ -17,6 +24,9 @@ The Digital Chief of Staff for the Modern Family Office
 5. [Technology Stack](#-technology-stack)
 6. [Getting Started (Development)](#-getting-started-development)
 7. [Deployment (Home Server)](#-deployment-home-server)
+8. [Contributing](#-contributing)
+9. [Code of Conduct](#-code-of-conduct)
+10. [License](#-license)
 
 -----
 
@@ -214,7 +224,22 @@ To deploy to your Proxmox Ubuntu VM.
 
 -----
 
+## 🤝 Contributing
+
+We welcome contributions from the community! Please see our [Contributing Guide](CONTRIBUTING.md) for detailed information on:
+
+- Development setup and workflow
+- Code style guidelines and standards
+- Testing requirements
+- Pull request process
+- Architecture guidelines
+
+## 📋 Code of Conduct
+
+This project adheres to a code of conduct to ensure a welcoming environment for all contributors. Please read our [Code of Conduct](CODE_OF_CONDUCT.md) before participating.
+
 ## 📄 License
 
-**Private & Proprietary.**
+**Private & Proprietary.** See [LICENSE.md](LICENSE.md) for detailed licensing terms.
+
 Designed exclusively for private Family Office usage. Not for public distribution.
