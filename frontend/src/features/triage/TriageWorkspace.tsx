@@ -84,7 +84,7 @@ export function TriageWorkspace({ activeItem }: TriageWorkspaceProps) {
     <div className="grid grid-cols-2 h-full">
       {/* Left Panel - Document Viewer */}
       <div className="border-r border-slate-200 dark:border-slate-700 p-6">
-        <PdfViewer url={`http://localhost:8000/static/${activeItem.file_path.split('/').pop()}`} />
+        <PdfViewer url={`http://localhost:8000/static/${activeItem.file_path}`} />
       </div>
 
       {/* Right Panel - Extraction Form */}
