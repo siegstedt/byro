@@ -1,5 +1,3 @@
-![Byro Logo](./frontend/public/byro%20logo%20cropped.png)
-
 <!-- Badges -->
 ![Python Version](https://img.shields.io/badge/python-3.13+-blue.svg?style=flat-square)
 ![Node.js Version](https://img.shields.io/badge/node.js-18+-green.svg?style=flat-square)
@@ -8,6 +6,8 @@
 ![OpenAI](https://img.shields.io/badge/OpenAI-412991?style=flat-square&logo=openai&logoColor=white)
 ![License](https://img.shields.io/badge/license-Proprietary-red.svg?style=flat-square)
 ![Last Commit](https://img.shields.io/github/last-commit/siegstedt/byro?style=flat-square)
+
+![Byro Logo](./frontend/public/byro%20logo%20cropped.png)
 
 # Byro: The Digital Chief of Staff for the Modern Family Office
 
