@@ -1,79 +1,57 @@
-import json
-from pathlib import Path
-from pypdf import PdfReader
-from openai import AsyncOpenAI
 import os
-from typing import Dict, Any
+import json
+from pypdf import PdfReader
+from openai import OpenAI
+import logging
+
+logger = logging.getLogger(__name__)
 
 class DocumentExtractionService:
     def __init__(self):
         api_key = os.getenv("OPENAI_API_KEY")
         if api_key and api_key != "your-openai-api-key-here":
-            self.client = AsyncOpenAI(api_key=api_key)
+            self.client = OpenAI(api_key=api_key)
         else:
             self.client = None
-    
-    async def extract_text_from_pdf(self, file_path: str) -> str:
-        """Extract raw text from PDF using pypdf"""
+
+    async def extract_text(self, file_path: str) -> str:
+        """Extract text from PDF file"""
         try:
-            pdf_path = Path(file_path)
-            reader = PdfReader(pdf_path)
-            
-            text_content = ""
+            reader = PdfReader(file_path)
+            text = ""
             for page in reader.pages:
-                text_content += page.extract_text() + "\n"
-            
-            return text_content.strip()
+                text += page.extract_text() + "\n"
+            return text.strip()
         except Exception as e:
-            raise Exception(f"PDF extraction failed: {str(e)}")
-    
-    async def analyze_document(self, text: str) -> Dict[str, Any]:
-        """Use GPT to analyze and structure document data"""
-        if not self.client:
-            # Mock response for testing when API key is not configured
-            return {
-                "title": "Test Document",
-                "document_date": "2025-12-10",
-                "counterparty": "Test Party",
-                "total_value": "Test Amount",
-                "summary": "This is a test document for development purposes."
-            }
+            logger.error(f"Failed to extract text from {file_path}: {str(e)}")
+            raise
 
-        prompt = """
-        Analyze this legal document and extract the following information as JSON:
-        - title: A concise title for the document
-        - document_date: The date of the document (YYYY-MM-DD format if possible)
-        - counterparty: The other party/parties involved
-        - total_value: Any monetary amounts mentioned (as a string)
-        - summary: A brief 2-3 sentence summary of the document's purpose
-
-        Return only valid JSON with these exact keys.
-        """
-
+    async def analyze_with_llm(self, text: str) -> dict:
+        """Analyze text with GPT-4o and return structured JSON"""
         try:
-            response = await self.client.chat.completions.create(
-                # model="gpt-5-mini",
-                model="gpt-5-nano",
+            system_prompt = """You are a legal AI. Extract the following fields from the document text:
+- title: The document title or subject
+- document_date: Date in YYYY-MM-DD format (extract from any date mentions) or null if none found
+- counterparty: The other party involved or null if none found
+- total_value: Numeric monetary amount (e.g., 50000.00) or null if none found
+- summary: Brief summary of the document
+- category: One of: invoice, contract, letter
+
+Return only valid JSON with these fields. Use null for missing values, not placeholder text."""
+
+            response = self.client.chat.completions.create(
+                model="gpt-4o",
                 messages=[
-                    {"role": "system", "content": "You are a legal document analysis assistant. Always return valid JSON."},
-                    {"role": "user", "content": f"Document text:\n\n{text[:4000]}"}  # Limit text length
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": f"Document text:\n{text}"}
                 ],
                 response_format={"type": "json_object"},
                 temperature=0.1
             )
 
-            result = response.choices[0].message.content
-            return json.loads(result)
+            result = json.loads(response.choices[0].message.content)
+            return result
 
         except Exception as e:
-            raise Exception(f"LLM analysis failed: {str(e)}")
-    
-    async def process_document(self, file_path: str) -> Dict[str, Any]:
-        """Complete document processing pipeline"""
-        # Extract text
-        text = await self.extract_text_from_pdf(file_path)
-        
-        # Analyze with LLM
-        analysis = await self.analyze_document(text)
-        
-        return analysis
+            logger.error(f"Failed to analyze text with LLM: {str(e)}")
+            raise
