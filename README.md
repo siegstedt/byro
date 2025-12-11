@@ -1,6 +1,6 @@
 # Byro
 
-![Byro Logo](byro logo cropped.png)
+![Byro Logo](./frontend/public/byro%20logo%20cropped.png)
 
 The Digital Chief of Staff for the Modern Family Office
 
