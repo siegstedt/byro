@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { Inbox, Briefcase, Calendar, Search } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -17,10 +18,18 @@ export function AppSidebar() {
   const pathname = usePathname();
 
   return (
-    <div className="fixed left-0 top-0 z-40 h-screen w-64 bg-white border-r border-slate-200">
+    <div className="fixed left-0 top-0 z-40 h-screen w-64 bg-background border-r border-border">
       <div className="flex h-full flex-col">
         <div className="flex h-16 items-center px-6">
-          <h1 className="text-xl font-semibold text-slate-900">Byro</h1>
+          <Link href="/">
+            <Image
+              src="/byro logo cropped.png"
+              alt="Byro Logo"
+              width={80}
+              height={30}
+              priority
+            />
+          </Link>
         </div>
         <nav className="flex-1 space-y-1 px-4 py-4">
           {navigation.map((item) => {
