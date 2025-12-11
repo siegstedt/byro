@@ -228,11 +228,11 @@ To deploy to your Proxmox Ubuntu VM.
 
 We welcome contributions from the community! Please see our [Contributing Guide](CONTRIBUTING.md) for detailed information on:
 
-- Development setup and workflow
-- Code style guidelines and standards
-- Testing requirements
-- Pull request process
-- Architecture guidelines
+* Development setup and workflow
+* Code style guidelines and standards
+* Testing requirements
+* Pull request process
+* Architecture guidelines
 
 ## 📋 Code of Conduct
 
