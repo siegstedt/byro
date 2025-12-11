@@ -4,7 +4,9 @@ from pathlib import Path
 from fastapi import UploadFile
 
 class LocalStorage:
-    def __init__(self, base_path: str = "./byro_data/uploads"):
+    def __init__(self, base_path: str = None):
+        if base_path is None:
+            base_path = os.getenv("UPLOAD_DIR", "./byro_data/uploads")
         self.base_path = Path(base_path)
         self.base_path.mkdir(parents=True, exist_ok=True)
     

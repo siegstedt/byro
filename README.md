@@ -108,7 +108,7 @@ We use a **Hybrid Relational/Document** model.
 
 Currently, files are stored on the VM's disk. However, the architecture anticipates a migration to a Synology NAS.
 
-* **Current State:** `LocalFileSystemService`. Files are saved to `/app/data/uploads` inside the Docker container, mapped to a physical directory on the host VM.
+* **Current State:** `LocalStorage`. Files are saved to `/app/byro_data/uploads` inside the Docker container, with persistent volume mounting for data retention across container restarts.
 * **Future State:** `S3StorageService`. When the Synology NAS is ready, we will enable its S3-compatible MinIO service. We will then swap the storage backend in Byro configuration to point to the NAS.
 * **Implication:** Code must *never* use `open('path/to/file')` directly. It must use the `storage_service.save()` and `storage_service.get()` abstraction methods.
 
@@ -175,7 +175,7 @@ POSTGRES_HOST=db
 
 # Storage
 STORAGE_BACKEND="local" # Options: local, s3
-UPLOAD_DIR="/data/uploads"
+UPLOAD_DIR="./byro_data/uploads"
 ```
 
 ### 3\. Run with Docker Compose

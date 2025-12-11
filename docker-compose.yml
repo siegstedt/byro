@@ -26,12 +26,15 @@ services:
       - "8000:8000"
     volumes:
       - ./backend:/app
+      - byro_uploads:/app/byro_data/uploads
     command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_HOST=db
+      - UPLOAD_DIR=./byro_data/uploads
+      - STORAGE_BACKEND=local
     networks:
       - byro-network
 
@@ -63,3 +66,4 @@ networks:
 
 volumes:
   byro_postgres_data:
+  byro_uploads:
