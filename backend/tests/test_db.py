@@ -1,8 +1,9 @@
-import asyncio
+import pytest
 from sqlalchemy import text
 from app.core.database import async_session
 from app.models import InboxItem, Matter, Document
 
+@pytest.mark.asyncio
 async def test_database():
     async with async_session() as session:
         # Test basic query
@@ -22,6 +23,3 @@ async def test_database():
         # Test pgvector extension
         vector_result = await session.execute(text("SELECT '[1,2,3]'::vector(3) as test_vector"))
         print(f"🧮 pgvector working: {vector_result.scalar()}")
-
-if __name__ == "__main__":
-    asyncio.run(test_database())

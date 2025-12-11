@@ -1,5 +1,7 @@
 # Byro
 
+![Byro Logo](byro logo cropped.png)
+
 The Digital Chief of Staff for the Modern Family Office
 
 > **Mission:** To create a centralized, sovereign "Active Intelligence" layer that sits between the Family Office and the chaos of the outside world. Byro translates the noise of legal administration into structured clarity, ensuring that no obligation is missed and no right is forfeited.

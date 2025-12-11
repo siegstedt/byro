@@ -11,3 +11,6 @@ pgvector
 greenlet
 openai
 pypdf
+pytest
+pytest-asyncio
+httpx

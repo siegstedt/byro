@@ -1,5 +1,6 @@
 from fastapi import APIRouter, UploadFile, File, Depends, HTTPException, BackgroundTasks
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy import select
 from app.core.database import get_db
 from app.models.inbox import InboxItem
 from app.services.storage import LocalStorage
@@ -13,7 +14,24 @@ extraction_service = DocumentExtractionService()
 
 logger = logging.getLogger(__name__)
 
-@router.post("/upload", response_model=InboxItemResponse)
+@router.get("/inbox", response_model=list[InboxItemResponse])
+async def get_inbox_items(db: AsyncSession = Depends(get_db)):
+    """Get all inbox items"""
+    result = await db.execute(
+        select(InboxItem).order_by(InboxItem.created_at.desc())
+    )
+    items = result.scalars().all()
+    return [InboxItemResponse.from_orm(item) for item in items]
+
+@router.get("/inbox/{item_id}", response_model=InboxItemResponse)
+async def get_inbox_item(item_id: str, db: AsyncSession = Depends(get_db)):
+    """Get a specific inbox item"""
+    inbox_item = await db.get(InboxItem, item_id)
+    if not inbox_item:
+        raise HTTPException(status_code=404, detail="Inbox item not found")
+    return InboxItemResponse.from_orm(inbox_item)
+
+@router.post("/inbox/upload", response_model=InboxItemResponse)
 async def upload_file(
     background_tasks: BackgroundTasks,
     file: UploadFile = File(...),
@@ -53,10 +71,13 @@ async def process_inbox_item(item_id: str, file_path: str):
     """Background task to process uploaded document"""
     try:
         logger.info(f"Starting processing for item {item_id}")
-        
-        # Extract and analyze document
-        analysis_result = await extraction_service.process_document(file_path)
-        
+
+        # Extract text from PDF
+        text = await extraction_service.extract_text(file_path)
+
+        # Analyze with LLM
+        analysis_result = await extraction_service.analyze_with_llm(text)
+
         # Update database with results
         from app.core.database import async_session
         async with async_session() as session:
@@ -68,7 +89,7 @@ async def process_inbox_item(item_id: str, file_path: str):
                 logger.info(f"Successfully processed item {item_id}")
             else:
                 logger.error(f"Inbox item {item_id} not found")
-                
+
     except Exception as e:
         logger.error(f"Processing failed for item {item_id}: {str(e)}")
         # Update status to error in database
